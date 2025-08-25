@@ -1,0 +1,18 @@
+sample = {
+    "items": [("A3043", 1, 54.975)],
+    "purchase_order_number": "1666772-1744014-2",
+    "sellercloud_order_id": 5019065,
+    "tax": 0.0,
+    "shipping": 18.0,
+    "subtotal": 72.97,
+    "code": "AAG",
+    "tracking_number": "test",
+    "ship_date": "2025/07/07",
+    "city": "Salisbury",
+    "state": "MD",
+    "country": "US",
+    "postal_code": "21804",
+    "address": "1800 Mount Hermon Rd",
+    "dropshipper_name": "Auto Accessories Garage",
+    "order_id": "AAG1666772-1744014-2",
+}
