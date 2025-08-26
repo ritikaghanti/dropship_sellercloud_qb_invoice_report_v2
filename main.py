@@ -6,7 +6,6 @@ from invoice import QbInvoice
 from df_creator import DfCreator
 from ftp import FTPManager
 from file_handler import FileHandler
-from email_helper import send_error_report
 from email_helper import EmailHelper
 from process_logger import ProcessLogger
 from seller_cloud_data import get_sellercloud_data
@@ -26,7 +25,9 @@ def main():
         if not orders_ready_to_invoice:
             print("No orders ready to invoice.")
             return
-        orders_ready_to_invoice = get_sellercloud_data(orders_ready_to_invoice)
+        orders_ready_to_invoice, sc_errors = get_sellercloud_data(
+            orders_ready_to_invoice
+        )
 
         # QuickBooks API client
         current_refresh_token = qb_db.get_refresh_token()
@@ -75,9 +76,13 @@ def main():
         if file_paths:
             ftp.upload_files(file_paths, test_mode=True)
 
+            # 🔁 Combine SellerCloud enrichment errors into the same email:
         if unable_to_invoice or already_invoiced:
             # send_error_report(unable_to_invoice, already_invoiced)
-            emailer.send_error_report(unable_to_invoice, already_invoiced)
+            emailer.send_error_report(
+                orders_unable_to_invoice=unable_to_invoice,
+                orders_already_invoiced=already_invoiced,
+            )
         logger.log_success("Completed successfully")
 
     except Exception as e:

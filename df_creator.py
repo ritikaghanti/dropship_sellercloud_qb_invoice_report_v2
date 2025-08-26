@@ -31,7 +31,6 @@ class DfCreator:
 
     # -------- Public API --------
     def populate_df(self, order: Dict[str, Any]) -> bool:
-        # TODO look over and verify that all the proper data is being inputted refere to old code csv --done
         try:
             fmt = self.file_format_name
             if fmt == "default":
